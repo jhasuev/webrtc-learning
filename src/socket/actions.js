@@ -1,7 +1,7 @@
 const ACTIONS = {
   JOIN: "join",
   LEAVE: "leave",
-  SHARE_ROOM: "share-room",
+  SHARE_ROOMS: "share-room",
   ADD_PEER: "add-peer",
   REMOVE_PEER: "remove-peer",
   RELAY_SDP: "relay-sdp",

@@ -16,7 +16,7 @@ function getClientRooms() {
 
 function shareRoomsInfo() {
   console.log(getClientRooms());
-  io.emit(ACTIONS.SHARE_ROOM, {
+  io.emit(ACTIONS.SHARE_ROOMS, {
     rooms: getClientRooms()
   })
 }
