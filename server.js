@@ -15,6 +15,7 @@ function getClientRooms() {
 }
 
 function shareRoomsInfo() {
+  console.log(getClientRooms());
   io.emit(ACTIONS.SHARE_ROOM, {
     rooms: getClientRooms()
   })
@@ -69,6 +70,20 @@ io.on("connection", socket => {
 
   socket.on(ACTIONS.LEAVE, leaveRoom)
   socket.on("disconnecting", leaveRoom)
+
+  socket.on(ACTIONS.RELAY_SDP, ({ peerID, sessionDescription }) => {
+    io.to(peerID).emit(ACTIONS.SESSION_DESCRIPTION, {
+      sessionDescription,
+      peerID: socket.id,
+    })
+  })
+  
+  socket.on(ACTIONS.RELAY_ICE, ({peerID, iceCandidate}) => {
+    io.to(peerID).emit(ACTIONS.ICE_CANDIDATE, {
+      iceCandidate,
+      peerID: socket.id,
+    })
+  })
 })
 
 server.listen(PORT, () => {
